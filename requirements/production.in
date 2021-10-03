@@ -1,0 +1,41 @@
+django
+psycopg2-binary
+
+# Different Django utils
+django-extensions
+
+# Operations on the image (like to crop avatars, transpose, etc)
+# set up from github as there is no PyPi release for
+# https://github.com/matthewwithanm/django-imagekit/pull/519/commits/cd0bda7ca742f979e832bb3c20492517ab0483b1
+git+https://github.com/matthewwithanm/django-imagekit.git@01358ca83d3876ac77425de37b771070fd429c82#egg=django-imagekit
+# low-level library for working with images
+Pillow
+
+djangorestframework
+django-filter
+
+# Celery (asynchronous background tasks runner)
+# Pinned version until `django-post-request-task` will support new celery version
+celery[redis]
+django-celery-beat
+
+# Celery tasks which execution is delayed until the request finishes
+django-post-request-task
+
+# Fast creation of model instances. May be used in tests
+factory_boy
+
+# pytest and pytest plugin for django
+pytest-django
+pytest-mock
+
+# improved REPL
+ipython
+
+# Operations with datetime
+arrow
+
+# Easier API for db functions
+django-sql-utils
+
+django-object-actions

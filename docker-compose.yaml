@@ -1,0 +1,43 @@
+version: '3.7'
+
+volumes:
+  ipython_history: {}
+
+services:
+  postgres:
+    image: postgres:13
+    ports:
+      - "5432:5432"
+    environment:
+      - POSTGRES_DB=english_diver_dev
+      - POSTGRES_USER=english_diver_user
+      - POSTGRES_PASSWORD=password
+
+  redis:
+    image: redis:5
+    ports:
+      - "6379:6379"
+
+  web: &web
+    # This image should be build with `inv project.prepare-python-env`
+    # with "interpreter = web" in .invoke file.
+    # or `docker.build`
+    image: english-diver-backend
+    volumes:
+      - ./:/app
+      - ipython_history:/root/.ipython/profile_default
+    environment:
+      - DJANGO_SETTINGS_MODULE=config.settings.local
+    ports:
+      - "8000:8000"
+    entrypoint: ""
+    command: python3 manage.py runserver 0.0.0.0:8000
+    depends_on:
+      - postgres
+      - redis
+
+  celery:
+    <<: *web
+    # start both worker and beat in same CMD for similicity
+    command: celery --app config.celery:app worker --beat --scheduler=django --loglevel=info
+    ports: []

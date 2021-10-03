@@ -1,0 +1,46 @@
+import socket
+
+from .deploy import *
+
+DEBUG = True
+ENVIRONMENT_NAME = "local"
+
+INTERNAL_IPS = (
+    "0.0.0.0",
+    "127.0.0.1",
+)
+# Hack to have working `debug` context processor when developing with docker
+ip = socket.gethostbyname(socket.gethostname())
+INTERNAL_IPS += (ip[:-1] + "1", )
+
+
+SECRET_KEY = "django-insecure-8y75707_+_!r!+t0hn#vuj+wb)8uudibr1pikt$l$r@vs4*vb9"
+
+DATABASES = {
+    "default": {
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": "hcp_dev",
+        "USER": "hcp_user",
+        "PASSWORD": "manager",
+        "HOST": "postgres",
+        "PORT": "5432",
+        "ATOMIC_REQUESTS": True,
+        "CONN_MAX_AGE": 600,
+    },
+}
+
+
+# Don"t use celery when you"re local
+CELERY_TASK_ALWAYS_EAGER = True
+CELERY_TASK_ROUTES = {}
+CELERY_BROKER_URL = "redis://redis/1"
+CELERY_RESULT_BACKEND = "redis://redis/1"
+CELERY_TASK_DEFAULT_QUEUE = "development"
+# disable django DEBUG if we run celery worker
+if "celery" in sys.argv[0]:
+    DEBUG = False
+
+EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
+
+# disable any password restrictions
+AUTH_PASSWORD_VALIDATORS = []

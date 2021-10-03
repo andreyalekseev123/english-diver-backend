@@ -1,0 +1,10 @@
+# Packages used just for development
+-r production.in
+
+django-debug-toolbar
+isort
+flake8
+
+pip-tools
+
+ipdb
