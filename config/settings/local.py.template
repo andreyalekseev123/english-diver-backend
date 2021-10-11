@@ -44,3 +44,5 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 
 # disable any password restrictions
 AUTH_PASSWORD_VALIDATORS = []
+
+FRONTEND_DOMAIN = "http://127.0.0.1:3000"

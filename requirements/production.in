@@ -39,3 +39,16 @@ arrow
 django-sql-utils
 
 django-object-actions
+
+# pyjwt == 2.1.0 because of this issue
+# https://stackoverflow.com/questions/69485121/django-rest-framework-simple-jwt-decode-got-an-unexpected-keyword-argument-v
+pyjwt==2.1.0
+
+# JWT tocken for auth
+djangorestframework_simplejwt
+
+# CORS for API
+django-cors-headers
+
+# Generate swagger spec
+drf-yasg

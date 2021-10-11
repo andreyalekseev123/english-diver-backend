@@ -21,6 +21,10 @@ celery[redis]==5.1.2
     #   -r production.in
     #   django-celery-beat
     #   django-post-request-task
+certifi==2021.10.8
+    # via requests
+charset-normalizer==2.0.6
+    # via requests
 click==7.1.2
     # via
     #   celery
@@ -34,6 +38,12 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.2.0
     # via celery
+coreapi==2.3.3
+    # via drf-yasg
+coreschema==0.0.4
+    # via
+    #   coreapi
+    #   drf-yasg
 decorator==5.0.9
     # via
     #   ipdb
@@ -43,6 +53,7 @@ django==3.2.7
     #   -r production.in
     #   django-appconf
     #   django-celery-beat
+    #   django-cors-headers
     #   django-debug-toolbar
     #   django-extensions
     #   django-filter
@@ -50,9 +61,13 @@ django==3.2.7
     #   django-sql-utils
     #   django-timezone-field
     #   djangorestframework
+    #   djangorestframework-simplejwt
+    #   drf-yasg
 django-appconf==1.0.4
     # via django-imagekit
 django-celery-beat==2.2.1
+    # via -r production.in
+django-cors-headers==3.10.0
     # via -r production.in
 django-debug-toolbar==3.2.2
     # via -r development.in
@@ -71,6 +86,13 @@ django-sql-utils==0.6.1
 django-timezone-field==4.2.1
     # via django-celery-beat
 djangorestframework==3.12.4
+    # via
+    #   -r production.in
+    #   djangorestframework-simplejwt
+    #   drf-yasg
+djangorestframework-simplejwt==4.8.0
+    # via -r production.in
+drf-yasg==1.20.0
     # via -r production.in
 factory-boy==3.2.0
     # via -r production.in
@@ -78,6 +100,10 @@ faker==8.12.1
     # via factory-boy
 flake8==3.9.2
     # via -r development.in
+idna==3.2
+    # via requests
+inflection==0.5.1
+    # via drf-yasg
 iniconfig==1.1.1
     # via pytest
 ipdb==0.13.9
@@ -88,16 +114,24 @@ ipython==7.27.0
     #   ipdb
 isort==5.9.3
     # via -r development.in
+itypes==1.2.0
+    # via coreapi
 jedi==0.18.0
     # via ipython
+jinja2==3.0.2
+    # via coreschema
 kombu==5.1.0
     # via celery
+markupsafe==2.0.1
+    # via jinja2
 matplotlib-inline==0.1.2
     # via ipython
 mccabe==0.6.1
     # via flake8
 packaging==21.0
-    # via pytest
+    # via
+    #   drf-yasg
+    #   pytest
 parso==0.8.2
     # via jedi
 pep517==0.11.0
@@ -130,6 +164,10 @@ pyflakes==2.3.1
     # via flake8
 pygments==2.10.0
     # via ipython
+pyjwt==2.1.0
+    # via
+    #   -r production.in
+    #   djangorestframework-simplejwt
 pyparsing==2.4.7
     # via packaging
 pytest==6.2.5
@@ -154,6 +192,12 @@ pytz==2021.1
     #   django-timezone-field
 redis==3.5.3
     # via celery
+requests==2.26.0
+    # via coreapi
+ruamel.yaml==0.17.16
+    # via drf-yasg
+ruamel.yaml.clib==0.2.6
+    # via ruamel.yaml
 six==1.16.0
     # via
     #   click-repl
@@ -176,6 +220,12 @@ traitlets==5.1.0
     # via
     #   ipython
     #   matplotlib-inline
+uritemplate==4.0.0
+    # via
+    #   coreapi
+    #   drf-yasg
+urllib3==1.26.7
+    # via requests
 vine==5.0.0
     # via
     #   amqp

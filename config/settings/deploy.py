@@ -28,3 +28,5 @@ CELERY_TASK_DEFAULT_QUEUE = ""
 # disable django DEBUG if we run celery worker
 if "celery" in sys.argv[0]:
     DEBUG = False
+
+FRONTEND_DOMAIN = ""

@@ -1,10 +1,8 @@
+from datetime import timedelta
+
 REST_FRAMEWORK = {
     "DEFAULT_AUTHENTICATION_CLASSES": (
-        # Only session authentication enabled now as API for 3rd party
-        # clients is out of scope now.
-        # Note: do not use DRF"s default Auth token!
-        # * It not supposed to work with multiple tokens per user
-        # * It stored in DB as plain text
+        'rest_framework_simplejwt.authentication.JWTAuthentication',
         "rest_framework.authentication.SessionAuthentication",
     ),
     "PAGE_SIZE": 100,
@@ -20,3 +18,14 @@ REST_FRAMEWORK = {
     "DATE_FORMAT": "%b %-d, %Y",
     "TIME_FORMAT": "%I:%M %p",
 }
+
+SIMPLE_JWT = {
+    'ACCESS_TOKEN_LIFETIME': timedelta(days=1),
+    'REFRESH_TOKEN_LIFETIME': timedelta(weeks=1),
+}
+
+
+# CORS setings
+
+CORS_ORIGIN_ALLOW_ALL = True
+CORS_ALLOW_CREDENTIALS = True
