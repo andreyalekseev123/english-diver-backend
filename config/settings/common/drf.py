@@ -17,6 +17,14 @@ REST_FRAMEWORK = {
     ),
     "DATE_FORMAT": "%b %-d, %Y",
     "TIME_FORMAT": "%I:%M %p",
+
+    'DEFAULT_SCHEMA_CLASS': 'drf_spectacular.openapi.AutoSchema',
+}
+
+SPECTACULAR_SETTINGS = {
+    'TITLE': 'English diver API',
+    'DESCRIPTION': 'Dive and learn english',
+    'VERSION': '1.0.0',
 }
 
 SIMPLE_JWT = {

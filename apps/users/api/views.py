@@ -41,7 +41,6 @@ class PasswordResetView(GenericAPIView):
 
         serializer.save()
         return Response(
-            {"success": "Password reset e-mail has been sent."},
             status=status.HTTP_200_OK
         )
 
@@ -61,9 +60,7 @@ class PasswordResetConfirmView(GenericAPIView):
         serializer = self.get_serializer(data=request.data)
         serializer.is_valid(raise_exception=True)
         serializer.save()
-        return Response(
-            {"success": "Password has been reset with the new password."}
-        )
+        return Response(status=status.HTTP_200_OK)
 
 
 class UserInfoView(GenericAPIView):

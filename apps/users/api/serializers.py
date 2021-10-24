@@ -139,15 +139,3 @@ class PasswordResetConfirmSerializer(serializers.Serializer):
 
     def save(self):
         self.set_password_form.save()
-
-
-class TokenObtainPairResponseSerializer(serializers.Serializer):
-    """Serializer for Swager representation."""
-    access = serializers.CharField()
-    refresh = serializers.CharField()
-
-    def create(self, validated_data):
-        raise NotImplementedError()
-
-    def update(self, instance, validated_data):
-        raise NotImplementedError()

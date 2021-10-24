@@ -51,4 +51,4 @@ djangorestframework_simplejwt
 django-cors-headers
 
 # Generate swagger spec
-drf-yasg
+drf-spectacular

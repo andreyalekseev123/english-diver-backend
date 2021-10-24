@@ -1,20 +1,29 @@
 from rest_framework import status
 
-from rest_framework_simplejwt import views as jwt_views
+from apps.core.utils import define_swagger_extend_schema
 
-from apps.core.utils import define_swagger_auto_schema
-
-from .serializers import TokenObtainPairResponseSerializer, UserSerializer
-from .views import RegistrationAPIView
-
-define_swagger_auto_schema(
-    view=jwt_views.TokenObtainPairView,
-    method='post',
-    responses={status.HTTP_200_OK: TokenObtainPairResponseSerializer},
+from .serializers import PasswordResetConfirmSerializer, UserSerializer
+from .views import (
+    PasswordResetConfirmView,
+    PasswordResetView,
+    RegistrationAPIView,
 )
 
-define_swagger_auto_schema(
+define_swagger_extend_schema(
     view=RegistrationAPIView,
     method='post',
     responses={status.HTTP_201_CREATED: UserSerializer}
 )
+
+define_swagger_extend_schema(
+    view=PasswordResetView,
+    method='post',
+    responses=None
+)
+define_swagger_extend_schema(
+    view=PasswordResetConfirmView,
+    method='post',
+    responses=None,
+    request_body=PasswordResetConfirmSerializer
+)
+

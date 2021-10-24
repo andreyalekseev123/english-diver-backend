@@ -11,7 +11,9 @@ arrow==1.1.1
 asgiref==3.4.1
     # via django
 attrs==21.2.0
-    # via pytest
+    # via
+    #   jsonschema
+    #   pytest
 backcall==0.2.0
     # via ipython
 billiard==3.6.4.0
@@ -21,10 +23,6 @@ celery[redis]==5.1.2
     #   -r production.in
     #   django-celery-beat
     #   django-post-request-task
-certifi==2021.10.8
-    # via requests
-charset-normalizer==2.0.6
-    # via requests
 click==7.1.2
     # via
     #   celery
@@ -37,12 +35,6 @@ click-plugins==1.1.1
     # via celery
 click-repl==0.2.0
     # via celery
-coreapi==2.3.3
-    # via drf-yasg
-coreschema==0.0.4
-    # via
-    #   coreapi
-    #   drf-yasg
 decorator==5.0.9
     # via ipython
 django==3.2.7
@@ -58,7 +50,7 @@ django==3.2.7
     #   django-timezone-field
     #   djangorestframework
     #   djangorestframework-simplejwt
-    #   drf-yasg
+    #   drf-spectacular
 django-appconf==1.0.4
     # via django-imagekit
 django-celery-beat==2.2.1
@@ -83,39 +75,31 @@ djangorestframework==3.12.4
     # via
     #   -r production.in
     #   djangorestframework-simplejwt
-    #   drf-yasg
+    #   drf-spectacular
 djangorestframework-simplejwt==4.8.0
     # via -r production.in
-drf-yasg==1.20.0
+drf-spectacular==0.20.2
     # via -r production.in
 factory-boy==3.2.0
     # via -r production.in
 faker==8.12.1
     # via factory-boy
-idna==3.2
-    # via requests
 inflection==0.5.1
-    # via drf-yasg
+    # via drf-spectacular
 iniconfig==1.1.1
     # via pytest
 ipython==7.27.0
     # via -r production.in
-itypes==1.2.0
-    # via coreapi
 jedi==0.18.0
     # via ipython
-jinja2==3.0.2
-    # via coreschema
+jsonschema==4.1.2
+    # via drf-spectacular
 kombu==5.1.0
     # via celery
-markupsafe==2.0.1
-    # via jinja2
 matplotlib-inline==0.1.2
     # via ipython
 packaging==21.0
-    # via
-    #   drf-yasg
-    #   pytest
+    # via pytest
 parso==0.8.2
     # via jedi
 pexpect==4.8.0
@@ -146,6 +130,8 @@ pyjwt==2.1.0
     #   djangorestframework-simplejwt
 pyparsing==2.4.7
     # via packaging
+pyrsistent==0.18.0
+    # via jsonschema
 pytest==6.2.5
     # via
     #   pytest-django
@@ -166,14 +152,10 @@ pytz==2021.1
     #   celery
     #   django
     #   django-timezone-field
+pyyaml==6.0
+    # via drf-spectacular
 redis==3.5.3
     # via celery
-requests==2.26.0
-    # via coreapi
-ruamel.yaml==0.17.16
-    # via drf-yasg
-ruamel.yaml.clib==0.2.6
-    # via ruamel.yaml
 six==1.16.0
     # via
     #   click-repl
@@ -192,11 +174,7 @@ traitlets==5.1.0
     #   ipython
     #   matplotlib-inline
 uritemplate==4.0.0
-    # via
-    #   coreapi
-    #   drf-yasg
-urllib3==1.26.7
-    # via requests
+    # via drf-spectacular
 vine==5.0.0
     # via
     #   amqp
