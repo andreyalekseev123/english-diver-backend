@@ -52,7 +52,7 @@ def create_invoke_config(interpreter, force=False):
             "[Project]\n"
             f"interpreter = {interpreter}"
         )
-        with open(INVOKE_CONFIG_PATH, "w", encoding="locale") as config_file:
+        with open(INVOKE_CONFIG_PATH, "w", encoding="utf-8") as config_file:
             config_file.write(conf_data)
         common.print_green(f"File `{INVOKE_CONFIG_PATH}` is created")
     else:
