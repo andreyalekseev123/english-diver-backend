@@ -52,3 +52,6 @@ django-cors-headers
 
 # Generate swagger spec
 drf-spectacular
+
+# Cors headers
+django-cors-headers

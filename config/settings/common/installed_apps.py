@@ -19,7 +19,8 @@ THIRD_PARTY_APPS = (
     "django_celery_beat",
     "django_object_actions",
     "django_filters",
-    'drf_spectacular',
+    "drf_spectacular",
+    "corsheaders",
 )
 
 LOCAL_APPS = (

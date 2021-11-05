@@ -10,7 +10,4 @@ def fill_sample_data(
     script_args="--silent"
 ):
     """Fill database with sample data."""
-    return django.manage(
-        context,
-        "runscript {} {}".format(script, script_args)
-    )
+    return True
