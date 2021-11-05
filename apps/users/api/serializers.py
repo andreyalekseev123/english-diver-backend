@@ -25,10 +25,6 @@ class RegistrationSerializer(serializers.ModelSerializer):
         max_length=128,
         min_length=8,
         write_only=True,
-        error_messages={
-            "min_length": "",
-            "max_length": "",
-        }
     )
 
     class Meta:
