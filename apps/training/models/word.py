@@ -95,6 +95,11 @@ class UserWord(models.Model):
         validators=[MaxValueValidator(100)],
         default=0,
     )
+    learned_times = models.PositiveIntegerField(
+        verbose_name=_("Word learned times"),
+        validators=[MaxValueValidator(3)],
+        default=0,
+    )
 
     class Meta:
         verbose_name = _("User word")
