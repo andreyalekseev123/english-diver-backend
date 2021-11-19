@@ -1,0 +1,3 @@
+# This need for heroku
+# Mirrors prod
+-r requirements/development.txt

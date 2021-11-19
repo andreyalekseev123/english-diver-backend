@@ -7,12 +7,14 @@ from rest_framework.mixins import (
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.viewsets import GenericViewSet
 
+from apps.core.views import BaseViewMixin
 from apps.training import models
 
 from . import serializers
 
 
 class DictionaryApiViewSet(
+    BaseViewMixin,
     GenericViewSet,
     CreateModelMixin,
     DestroyModelMixin,

@@ -33,7 +33,10 @@ def init_local(context):
     """Create settings for local environment"""
     template_path = "config/settings/local.py.template"
     destination_path = "config/settings/local.py"
+    env_template_path = "config/settings/.env.template"
+    env_path = "config/settings/.env"
     context.run(f"cp {template_path} {destination_path}")
+    context.run(f"cp {env_template_path} {env_path}")
 
 
 @task

@@ -1,27 +1,32 @@
 import sys
 
+from environ import environ
+
 from .common import *
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.postgresql",
-        "NAME": "english_diver_dev",
-        "USER": "english_diver_user",
-        "PASSWORD": "password",
-        "HOST": "postgres",
-        "PORT": "5432",
-        "ATOMIC_REQUESTS": True,
-        "CONN_MAX_AGE": 600,
-    },
-}
+env = environ.Env()
 
-EMAIL_HOST = ""
-EMAIL_HOST_USER = ""
-EMAIL_HOST_PASSWORD = ""
-EMAIL_PORT = 587
+env.read_env(overwrite=False)
+
+DEBUG = env.bool("DEBUG")
+ALLOWED_HOSTS = ["*"]
+SECRET_KEY = env("SECRET_KEY")
+
+EMAIL_BACKEND = "django.core.mail.backends.smtp.EmailBackend"
+EMAIL_HOST = "smtp.gmail.com"
 EMAIL_USE_TLS = True
-DEFAULT_FROM_EMAIL = ""
+EMAIL_PORT = 587
+EMAIL_HOST_USER = env("EMAIL_HOST_USER")
+EMAIL_HOST_PASSWORD = env("EMAIL_HOST_PASSWORD")
 
+DATABASES = {
+    "default": env.db("DATABASE_URL"),
+}
+DATABASES["default"]["ATOMIC_REQUESTS"] = True
+DATABASES["default"]["CONN_MAX_AGE"] = 600
+
+
+CELERY_TASK_ALWAYS_EAGER = env("CELERY_TASK_ALWAYS_EAGER")
 CELERY_BROKER_URL = ""
 CELERY_RESULT_BACKEND = ""
 CELERY_TASK_DEFAULT_QUEUE = ""
@@ -29,4 +34,7 @@ CELERY_TASK_DEFAULT_QUEUE = ""
 if "celery" in sys.argv[0]:
     DEBUG = False
 
-FRONTEND_DOMAIN = ""
+# disable any password restrictions
+AUTH_PASSWORD_VALIDATORS = []
+
+FRONTEND_DOMAIN = env("FRONTEND_DOMAIN")

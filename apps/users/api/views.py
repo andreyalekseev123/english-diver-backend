@@ -3,6 +3,7 @@ from rest_framework.generics import GenericAPIView
 from rest_framework.permissions import AllowAny
 from rest_framework.response import Response
 
+from ...core.views import BaseViewMixin
 from .serializers import (
     PasswordResetConfirmSerializer,
     PasswordResetSerializer,
@@ -63,7 +64,7 @@ class PasswordResetConfirmView(GenericAPIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class UserInfoView(GenericAPIView):
+class UserInfoView(BaseViewMixin, GenericAPIView):
     """View just to get user data.
 
     User request's this entrypoint and gets his data.
@@ -75,10 +76,5 @@ class UserInfoView(GenericAPIView):
     filter_backends = None
 
     def get(self, request):
-        if not request.user.is_authenticated:
-            return Response(
-                {'error': "You must authenticate to get user info"},
-                status=status.HTTP_401_UNAUTHORIZED,
-            )
         serializer = self.get_serializer(request.user)
         return Response(serializer.data)
