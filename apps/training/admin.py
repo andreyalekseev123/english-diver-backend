@@ -1,6 +1,8 @@
 from django.contrib import admin
 
-from . import models
+from import_export.admin import ImportExportMixin
+
+from . import models, resources
 
 
 @admin.register(models.TrainingType)
@@ -86,14 +88,17 @@ class UserWordAdmin(admin.ModelAdmin):
 
 
 @admin.register(models.Word)
-class WordAdmin(admin.ModelAdmin):
+class WordAdmin(ImportExportMixin, admin.ModelAdmin):
     """Admin class for ``Word`` model."""
+    resource_class = resources.WordResource
+
     search_fields = ("english", "russian")
     filter_horizontal = ("categories",)
     list_display = (
         "id",
         "english",
         "russian",
+        "_categories",
     )
     fieldsets = (
         ("Main info", {
@@ -102,6 +107,12 @@ class WordAdmin(admin.ModelAdmin):
         }),
     )
     readonly_fields = ("id",)
+
+    def _categories(self, instance):
+        """Get all categories for word."""
+        return ", ".join(
+            [str(category) for category in instance.categories.all()]
+        )
 
 
 class WordInline(admin.TabularInline):

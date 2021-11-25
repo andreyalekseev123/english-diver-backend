@@ -21,6 +21,7 @@ THIRD_PARTY_APPS = (
     "django_filters",
     "drf_spectacular",
     "corsheaders",
+    "import_export",
 )
 
 LOCAL_APPS = (

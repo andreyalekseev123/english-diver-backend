@@ -40,6 +40,10 @@ decorator==5.0.9
     # via
     #   ipdb
     #   ipython
+defusedxml==0.7.1
+    # via odfpy
+diff-match-patch==20200713
+    # via django-import-export
 django==3.2.7
     # via
     #   -r production.in
@@ -49,6 +53,7 @@ django==3.2.7
     #   django-debug-toolbar
     #   django-extensions
     #   django-filter
+    #   django-import-export
     #   django-post-request-task
     #   django-sql-utils
     #   django-timezone-field
@@ -71,6 +76,8 @@ django-filter==2.4.0
     # via -r production.in
 git+https://github.com/matthewwithanm/django-imagekit.git@01358ca83d3876ac77425de37b771070fd429c82#egg=django-imagekit
     # via -r production.in
+django-import-export==2.6.1
+    # via -r production.in
 django-object-actions==3.0.2
     # via -r production.in
 django-post-request-task==0.5
@@ -88,14 +95,14 @@ djangorestframework-simplejwt==4.8.0
     # via -r production.in
 drf-spectacular==0.20.2
     # via -r production.in
+et-xmlfile==1.1.0
+    # via openpyxl
 factory-boy==3.2.0
     # via -r production.in
 faker==8.12.1
     # via factory-boy
 flake8==3.9.2
     # via -r development.in
-gunicorn==20.1.0
-    # via -r production.in
 inflection==0.5.1
     # via drf-spectacular
 iniconfig==1.1.1
@@ -114,10 +121,16 @@ jsonschema==4.1.2
     # via drf-spectacular
 kombu==5.1.0
     # via celery
+markuppy==1.14
+    # via tablib
 matplotlib-inline==0.1.2
     # via ipython
 mccabe==0.6.1
     # via flake8
+odfpy==1.4.1
+    # via tablib
+openpyxl==3.0.9
+    # via tablib
 packaging==21.0
     # via pytest
 parso==0.8.2
@@ -181,7 +194,9 @@ pytz==2021.1
     #   django
     #   django-timezone-field
 pyyaml==6.0
-    # via drf-spectacular
+    # via
+    #   drf-spectacular
+    #   tablib
 redis==3.5.3
     # via celery
 six==1.16.0
@@ -194,6 +209,8 @@ sqlparse==0.4.1
     #   django
     #   django-debug-toolbar
     #   django-sql-utils
+tablib[html,ods,xls,xlsx,yaml]==3.1.0
+    # via django-import-export
 text-unidecode==1.3
     # via faker
 toml==0.10.2
@@ -217,8 +234,10 @@ wcwidth==0.2.5
     # via prompt-toolkit
 wheel==0.37.0
     # via pip-tools
-whitenoise==5.3.0
-    # via -r production.in
+xlrd==2.0.1
+    # via tablib
+xlwt==1.3.0
+    # via tablib
 
 # The following packages are considered to be unsafe in a requirements file:
 # pip

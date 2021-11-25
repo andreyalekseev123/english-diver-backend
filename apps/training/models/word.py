@@ -10,11 +10,6 @@ from django_extensions.db.fields import AutoSlugField
 
 class Category(models.Model):
     """The name of words category."""
-    id = AutoSlugField(
-        populate_from="name",
-        primary_key=True,
-        max_length=255,
-    )
     name = CICharField(
         verbose_name=_("Name"),
         max_length=255,
