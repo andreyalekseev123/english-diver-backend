@@ -1,3 +1,4 @@
+from .category import CategorySerializer
 from .dictionary import (
     CategoryIdSerializer,
     UserWordCreateSerializer,
@@ -6,6 +7,7 @@ from .dictionary import (
 )
 
 __all__ = (
+    "CategorySerializer",
     "CategoryIdSerializer",
     "WordSerializer",
     "UserWordSerializer",

@@ -1,4 +1,4 @@
-from rest_framework.routers import DefaultRouter, SimpleRouter
+from rest_framework.routers import SimpleRouter
 
 from . import views
 
@@ -9,6 +9,16 @@ router.register(
     "dictionary",
     views.DictionaryApiViewSet,
     basename="dictionary"
+)
+router.register(
+    "categories",
+    views.CategoryViewSet,
+    basename="categories"
+)
+router.register(
+    "words",
+    views.WordsViewSet,
+    basename="words"
 )
 
 urlpatterns = router.urls

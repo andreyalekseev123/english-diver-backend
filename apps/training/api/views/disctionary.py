@@ -1,6 +1,4 @@
-from django.utils.translation import gettext_lazy as _
-
-from rest_framework import exceptions, status
+from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.filters import SearchFilter
 from rest_framework.generics import get_object_or_404
@@ -11,18 +9,16 @@ from rest_framework.mixins import (
 )
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.response import Response
-from rest_framework.viewsets import GenericViewSet
 
-from apps.core.views import BaseViewMixin
+from apps.core.api.views import BaseViewSet
 from apps.training import models
 
-from .. import serializers
 from ...models import Category
+from .. import serializers
 
 
 class DictionaryApiViewSet(
-    BaseViewMixin,
-    GenericViewSet,
+    BaseViewSet,
     CreateModelMixin,
     DestroyModelMixin,
     ListModelMixin,
@@ -40,12 +36,6 @@ class DictionaryApiViewSet(
     )
 
     permission_classes = [IsAuthenticated]
-
-    def get_serializer_class(self):
-        serializer = self.serializer_map.get(self.action)
-        if not serializer:
-            return serializers.UserWordSerializer
-        return serializer
 
     def get_queryset(self):
         return models.UserWord.objects.filter(
