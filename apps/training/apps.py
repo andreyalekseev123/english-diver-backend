@@ -6,3 +6,7 @@ class TrainingAppConfig(AppConfig):
     """Default configuration for training app."""
     name = "apps.training"
     verbose_name = _("Trainings")
+
+    def ready(self):
+        super().ready()
+        from .api import schema # noqa
