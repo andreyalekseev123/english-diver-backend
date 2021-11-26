@@ -24,7 +24,6 @@ class WordResource(resources.ModelResource):
             "english",
         )
         fields = (
-            "id",
             "english",
             "russian",
             "categories",
