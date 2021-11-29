@@ -63,3 +63,5 @@ django-environ
 # with included admin integration.
 # https://django-import-export.readthedocs.io/en/stable/index.html#
 django-import-export==2.6.*
+
+gunicorn

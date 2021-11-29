@@ -95,6 +95,8 @@ factory-boy==3.2.0
     # via -r production.in
 faker==8.12.1
     # via factory-boy
+gunicorn==20.1.0
+    # via -r production.in
 inflection==0.5.1
     # via drf-spectacular
 iniconfig==1.1.1

@@ -103,6 +103,8 @@ faker==8.12.1
     # via factory-boy
 flake8==3.9.2
     # via -r development.in
+gunicorn==20.1.0
+    # via -r production.in
 inflection==0.5.1
     # via drf-spectacular
 iniconfig==1.1.1
