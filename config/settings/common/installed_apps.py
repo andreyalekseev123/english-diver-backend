@@ -22,6 +22,7 @@ THIRD_PARTY_APPS = (
     "drf_spectacular",
     "corsheaders",
     "import_export",
+    "django_admin_inline_paginator",
 )
 
 LOCAL_APPS = (

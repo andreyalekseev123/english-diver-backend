@@ -44,8 +44,11 @@ class User(
     PermissionsMixin,
     TimeStampedModel,
 ):
-    """Custom user model without username."""
-
+    """Custom user model with email username."""
+    username = models.CharField(
+        verbose_name=_("Username"),
+        max_length=30,
+    )
     first_name = models.CharField(
         verbose_name=_("First name"),
         max_length=30,

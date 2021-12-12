@@ -5,12 +5,15 @@ from apps.training import models
 
 
 class WordSerializer(ModelBaseSerializer):
+    is_linked = serializers.BooleanField(read_only=True)
+
     class Meta:
         model = models.Word
         fields = (
             "id",
             "english",
             "russian",
+            "is_linked"
         )
 
 

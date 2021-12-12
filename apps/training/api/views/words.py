@@ -14,3 +14,7 @@ class WordsViewSet(BaseViewSet, ListModelMixin):
     queryset = Word.objects.all()
     serializer_class = WordSerializer
     filterset_class = WordsFilter
+
+    def get_queryset(self):
+        """Annotate with is_linked."""
+        return super().get_queryset().with_is_linked(self.request.user)

@@ -64,4 +64,10 @@ django-environ
 # https://django-import-export.readthedocs.io/en/stable/index.html#
 django-import-export==2.6.*
 
-gunicorn
+# make requests to some servers
+requests
+
+pyuwsgi
+
+# paginate inlines in admin
+django-admin-inline-paginator

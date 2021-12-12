@@ -1,5 +1,6 @@
 from django.contrib import admin
 
+from django_admin_inline_paginator.admin import TabularInlinePaginated
 from import_export.admin import ImportExportMixin
 
 from . import models, resources
@@ -115,13 +116,15 @@ class WordAdmin(ImportExportMixin, admin.ModelAdmin):
         )
 
 
-class WordInline(admin.TabularInline):
+class WordInline(TabularInlinePaginated):
     model = models.Word.categories.through
+    per_page = 10
 
 
 @admin.register(models.Category)
-class CategoryAdmin(admin.ModelAdmin):
+class CategoryAdmin(ImportExportMixin, admin.ModelAdmin):
     """Admin class for ``Category`` model."""
+    resource_class = resources.CategoryResource
     search_fields = ("name",)
     list_display = (
         "id",
@@ -130,9 +133,13 @@ class CategoryAdmin(admin.ModelAdmin):
     fieldsets = (
         ("Main info", {
             "classes": ("wide",),
-            "fields": ("name",),
+            "fields": ("name", "image"),
         }),
     )
     inlines = [
         WordInline,
     ]
+
+    def get_queryset(self, request):
+        """Prefetch words."""
+        return super().get_queryset(request).prefetch_related("words")

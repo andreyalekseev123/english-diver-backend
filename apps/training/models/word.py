@@ -1,8 +1,10 @@
 import uuid
 
+from django.conf import settings
 from django.contrib.postgres.fields import CICharField
 from django.core.validators import MaxValueValidator
 from django.db import models
+from django.db.models import Case, When
 from django.utils.translation import gettext_lazy as _
 
 from django_extensions.db.fields import AutoSlugField
@@ -15,6 +17,12 @@ class Category(models.Model):
         max_length=255,
         unique=True,
     )
+    image = models.ImageField(
+        upload_to=settings.DEFAULT_MEDIA_PATH,
+        blank=True,
+        null=True,
+        verbose_name=_("Image"),
+    )
 
     class Meta:
         verbose_name = _("Category")
@@ -23,6 +31,26 @@ class Category(models.Model):
 
     def __str__(self) -> str:
         return str(self.name)
+
+
+class WordQuerySet(models.QuerySet):
+    """QuerySet for Word model"""
+
+    def with_is_linked(self, user):
+        """Annotate with `is_linked`.
+
+        Does this user already linked to this word.
+        """
+        return self.annotate(
+            is_linked=Case(
+                When(
+                    user_words__user=user,
+                    then=True,
+                ),
+                default=False,
+                output_field=models.BooleanField(),
+            ),
+        )
 
 
 class Word(models.Model):
@@ -53,6 +81,7 @@ class Word(models.Model):
         related_query_name="word",
         through="UserWord",
     )
+    objects = WordQuerySet.as_manager()
 
     class Meta:
         verbose_name = _("Word")

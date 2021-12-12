@@ -15,7 +15,7 @@ from apps.users.models import User
 class UserSerializer(serializers.ModelSerializer):
     class Meta:
         model = User
-        fields = ["email"]
+        fields = ["email", "username"]
 
 
 class RegistrationSerializer(serializers.ModelSerializer):
@@ -29,7 +29,7 @@ class RegistrationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = User
-        fields = ["email", "password"]
+        fields = ["username", "email", "password"]
         extra_kwargs = {
             "email": {
                 "error_messages": {

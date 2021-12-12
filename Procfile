@@ -1,1 +1,1 @@
-web: python manage.py migrate & gunicorn config.wsgi
+web: python manage.py migrate & python manage.py collectstatic & pyuwsgi --ini uwsgi.ini --chdir=`pwd`

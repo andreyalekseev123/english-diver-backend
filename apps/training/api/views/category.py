@@ -10,3 +10,8 @@ class CategoryViewSet(BaseViewSet, ListModelMixin, RetrieveModelMixin):
     """ViewSet for category model"""
     queryset = Category.objects.all()
     serializer_class = serializers.CategorySerializer
+
+    search_fields = (
+        "word__english",
+        "word__russian",
+    )
