@@ -48,6 +48,7 @@ diff-match-patch==20200713
 django==3.2.7
     # via
     #   -r production.in
+    #   django-admin-inline-paginator
     #   django-appconf
     #   django-celery-beat
     #   django-cors-headers
@@ -60,6 +61,8 @@ django==3.2.7
     #   djangorestframework
     #   djangorestframework-simplejwt
     #   drf-spectacular
+django-admin-inline-paginator==0.2.2
+    # via -r production.in
 django-appconf==1.0.4
     # via django-imagekit
 django-celery-beat==2.2.1
