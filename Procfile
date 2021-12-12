@@ -1,1 +1,1 @@
-web: python manage.py migrate & python manage.py collectstatic & pyuwsgi --ini uwsgi.ini --chdir=`pwd`
+web: python manage.py migrate & python manage.py collectstatic --no-input & pyuwsgi --ini uwsgi.ini --chdir=`pwd`
