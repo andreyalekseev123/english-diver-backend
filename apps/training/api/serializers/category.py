@@ -13,6 +13,7 @@ class CategorySerializer(ModelBaseSerializer):
         fields = (
             "id",
             "name",
+            "image",
             "words_count",
         )
 
