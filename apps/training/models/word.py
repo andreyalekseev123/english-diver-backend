@@ -4,7 +4,7 @@ from django.conf import settings
 from django.contrib.postgres.fields import CICharField
 from django.core.validators import MaxValueValidator
 from django.db import models
-from django.db.models import Case, When
+from django.db.models import Case, OuterRef, Q, Subquery, Value, When
 from django.utils.translation import gettext_lazy as _
 
 from django_extensions.db.fields import AutoSlugField
@@ -41,10 +41,15 @@ class WordQuerySet(models.QuerySet):
 
         Does this user already linked to this word.
         """
-        return self.annotate(
+        user_words = UserWord.objects.filter(
+            word=OuterRef("pk")
+        ).filter(
+            user=user
+        ).values("user_id")
+        return self.annotate(user_id=Value(user.id)).annotate(
             is_linked=Case(
                 When(
-                    user_words__user=user,
+                    user_id__in=Subquery(user_words),
                     then=True,
                 ),
                 default=False,
