@@ -48,6 +48,7 @@ class UserAdmin(DjangoObjectActions, DjangoUserAdmin):
     list_display = (
         "avatar_thumbnail",
         "email",
+        "username",
         "first_name",
         "last_name",
         "is_staff",
@@ -75,6 +76,7 @@ class UserAdmin(DjangoObjectActions, DjangoUserAdmin):
         }),
         (_("Personal info"), {
             "fields": (
+                "username",
                 "first_name",
                 "last_name",
                 "avatar",
