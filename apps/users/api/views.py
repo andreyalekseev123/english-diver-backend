@@ -1,6 +1,6 @@
 from rest_framework import status
 from rest_framework.generics import GenericAPIView
-from rest_framework.permissions import AllowAny
+from rest_framework.permissions import AllowAny, IsAuthenticated
 from rest_framework.response import Response
 
 from ...core.views import BaseViewMixin
@@ -64,12 +64,13 @@ class PasswordResetConfirmView(GenericAPIView):
         return Response(status=status.HTTP_200_OK)
 
 
-class UserInfoView(BaseViewMixin, GenericAPIView):
+class UserInfoView(GenericAPIView):
     """View just to get user data.
 
     User request's this entrypoint and gets his data.
     """
     serializer_class = UserSerializer
+    permission_classes = (IsAuthenticated,)
 
     # For swagger
     pagination_class = None
