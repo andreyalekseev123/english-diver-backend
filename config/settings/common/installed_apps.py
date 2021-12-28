@@ -23,6 +23,8 @@ THIRD_PARTY_APPS = (
     "corsheaders",
     "import_export",
     "django_admin_inline_paginator",
+    "cloudinary_storage",
+    "cloudinary",
 )
 
 LOCAL_APPS = (

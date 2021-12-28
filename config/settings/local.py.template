@@ -46,3 +46,5 @@ EMAIL_BACKEND = "django.core.mail.backends.console.EmailBackend"
 AUTH_PASSWORD_VALIDATORS = []
 
 FRONTEND_DOMAIN = "http://127.0.0.1:3000"
+
+DEFAULT_FILE_STORAGE = "django.core.files.storage.FileSystemStorage"

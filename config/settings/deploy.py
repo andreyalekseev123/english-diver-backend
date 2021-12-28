@@ -25,7 +25,6 @@ DATABASES = {
 DATABASES["default"]["ATOMIC_REQUESTS"] = True
 DATABASES["default"]["CONN_MAX_AGE"] = 600
 
-
 CELERY_TASK_ALWAYS_EAGER = env("CELERY_TASK_ALWAYS_EAGER")
 CELERY_BROKER_URL = ""
 CELERY_RESULT_BACKEND = ""
@@ -38,3 +37,10 @@ if "celery" in sys.argv[0]:
 AUTH_PASSWORD_VALIDATORS = []
 
 FRONTEND_DOMAIN = env("FRONTEND_DOMAIN")
+
+CLOUDINARY_STORAGE = {
+    "CLOUD_NAME": env("CLOUD_NAME"),
+    "API_KEY": env("API_KEY"),
+    "API_SECRET": env("API_SECRET"),
+}
+DEFAULT_FILE_STORAGE = 'cloudinary_storage.storage.MediaCloudinaryStorage'

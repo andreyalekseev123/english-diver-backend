@@ -71,3 +71,7 @@ pyuwsgi
 
 # paginate inlines in admin
 django-admin-inline-paginator
+
+# image storages
+cloudinary==1.17.0
+django-cloudinary-storage==0.3.0
