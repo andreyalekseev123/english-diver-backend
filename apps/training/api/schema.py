@@ -4,13 +4,29 @@ from drf_spectacular.utils import (
 )
 
 from . import views
-from .serializers import CategoryIdSerializer
+from . import serializers
 
 extend_schema_view(
     add_category_words=extend_schema(
-        request=CategoryIdSerializer,
+        request=serializers.CategoryIdSerializer,
         responses={
             200: None
         }
     ),
 )(views.DictionaryApiViewSet)
+
+extend_schema_view(
+    start=extend_schema(
+        request=None,
+        responses={
+            200: serializers.TrainingItemSerializer,
+        }
+    ),
+    finish=extend_schema(
+        request=serializers.FinishTrainingSerializer,
+        responses={
+            200: None,
+        }
+    ),
+)(views.TrainingTypeViewSet)
+

@@ -1,3 +1,4 @@
+from import_export.widgets import CharWidget as BaseCharWidget
 from import_export.widgets import ManyToManyWidget
 
 
@@ -22,3 +23,10 @@ class CreatableManyToManyWidget(ManyToManyWidget):
                 )
             )
         return instances
+
+
+class CharWidget(BaseCharWidget):
+
+    def clean(self, value, row=None, *args, **kwargs):
+        """Strip string."""
+        return value.strip()

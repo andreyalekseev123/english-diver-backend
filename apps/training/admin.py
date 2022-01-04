@@ -14,7 +14,14 @@ class TrainingTypeAdmin(admin.ModelAdmin):
     fieldsets = (
         (None, {
             "classes": ("wide",),
-            "fields": ("id", "name", "cost"),
+            "fields": (
+                "id",
+                "name",
+                "image",
+                "questions_count",
+                "words_per_question_count",
+                "cost",
+            ),
         }),
     )
     readonly_fields = ("id",)
@@ -58,15 +65,6 @@ class QuestionAdmin(admin.ModelAdmin):
         "user_word",
     )
     readonly_fields = ("id",)
-
-    def has_add_permission(self, request):
-        return False
-
-    def has_change_permission(self, request, obj=None):
-        return False
-
-    def has_delete_permission(self, request, obj=None):
-        return False
 
 
 @admin.register(models.UserWord)

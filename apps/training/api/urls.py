@@ -20,5 +20,10 @@ router.register(
     views.WordsViewSet,
     basename="words"
 )
+router.register(
+    "training-types",
+    views.TrainingTypeViewSet,
+    basename="training-types"
+)
 
 urlpatterns = router.urls

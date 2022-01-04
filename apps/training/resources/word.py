@@ -1,13 +1,14 @@
-from import_export import resources
 
 from apps.core.import_export.fields import FieldWithAddM2M
 from apps.core.import_export.widgets import CreatableManyToManyWidget
 
+from ...core.import_export.resource import ModelResource
 from .. import models
 
 
-class WordResource(resources.ModelResource):
+class WordResource(ModelResource):
     """Resource for word importing/exporting."""
+
     categories = FieldWithAddM2M(
         attribute="categories",
         column_name="Categories",

@@ -1,3 +1,4 @@
+import os
 import uuid
 
 from django.core.exceptions import ValidationError
@@ -6,15 +7,45 @@ from django.db import models
 from django.utils.translation import gettext_lazy as _
 
 
+def training_type_upload_to(model_instance, filename):
+    """Function for generation of upload path for Django model instance.
+
+    Generates upload path that contain instance"s model app, model name,
+    object"s ID, salt and file name.
+    """
+    components = model_instance._meta.label_lower.split(".")
+    components.append(str(model_instance.name))
+    components.append(str(uuid.uuid4()))
+    components.append(filename)
+
+    return os.path.join(*components)
+
+
 class TrainingType(models.Model):
     """Type of training."""
     name = models.CharField(
         max_length=255,
+        unique=True,
         verbose_name=_("Type Name"),
     )
+    image = models.ImageField(
+        upload_to=training_type_upload_to,
+        blank=True,
+        null=True,
+        verbose_name=_("Image"),
+    )
+    questions_count = models.PositiveIntegerField(
+        verbose_name=_("Questions count"),
+        help_text=_("How much questions must be in training"),
+    )
+    words_per_question_count = models.PositiveIntegerField(
+        verbose_name=_("Words per question count"),
+        help_text=_("How much questions must be in training"),
+    )
+
     cost = models.PositiveIntegerField(
-        verbose_name=_("Training Type Cost"),
-        validators=[MaxValueValidator(100)]
+        verbose_name=_("Cost"),
+        validators=[MaxValueValidator(100)],
     )
 
     class Meta:
@@ -48,6 +79,7 @@ class Training(models.Model):
     class Meta:
         verbose_name = _("Training")
         verbose_name_plural = _("Trainings")
+        unique_together = ("user", "type")
 
     def __str__(self):
         return f"{self.user} training: {self.type}"

@@ -5,6 +5,8 @@ from .dictionary import (
     UserWordSerializer,
     WordSerializer,
 )
+from .training import FinishTrainingSerializer, TrainingItemSerializer
+from .training_type import TrainingTypeSerializer
 
 __all__ = (
     "CategorySerializer",
@@ -12,4 +14,7 @@ __all__ = (
     "WordSerializer",
     "UserWordSerializer",
     "UserWordCreateSerializer",
+    "TrainingTypeSerializer",
+    "TrainingItemSerializer",
+    "FinishTrainingSerializer",
 )
