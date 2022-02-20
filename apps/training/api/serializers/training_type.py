@@ -1,5 +1,3 @@
-from rest_framework import serializers
-
 from apps.core.api.serializers import ModelBaseSerializer
 from apps.training.models import TrainingType
 

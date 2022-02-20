@@ -20,14 +20,15 @@ from .. import serializers
 class DictionaryApiViewSet(
     BaseViewSet,
     CreateModelMixin,
-    DestroyModelMixin,
     ListModelMixin,
 ):
     serializer_map = {
-        "list": serializers.UserWordSerializer,
+        "list": serializers.UserWordRemoveSerializer,
         "create": serializers.UserWordCreateSerializer,
         "destroy": serializers.UserWordCreateSerializer,
         "add_category_words": serializers.CategoryIdSerializer,
+        "remove_from_dictionary": serializers.UserWordRemoveSerializer,
+        "add_words_to_training": serializers.AddWordsToTrainingSerializer,
     }
     filter_backends = [SearchFilter]
     search_fields = (
@@ -57,4 +58,28 @@ class DictionaryApiViewSet(
                 id__in=self.request.user.words.values("id")
             )
         )
-        return Response(status=status.HTTP_200_OK,)
+        return Response(status=status.HTTP_200_OK)
+
+    @action(
+        methods=["POST"],
+        detail=False,
+        url_path="remove-from-dictionary",
+    )
+    def remove_from_dictionary(self, request):
+        """Remove word from dictionary using word id."""
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_204_NO_CONTENT)
+
+    @action(
+        methods=["POST"],
+        detail=False,
+        url_path="add-words-to-training",
+    )
+    def add_words_to_training(self, request):
+        """Add words to future trainings."""
+        serializer = self.get_serializer(data=request.data)
+        serializer.is_valid(raise_exception=True)
+        serializer.save()
+        return Response(status=status.HTTP_200_OK)

@@ -57,6 +57,28 @@ class TrainingType(models.Model):
         return f"{self.name}({self.cost})"
 
 
+class TrainingTypeUserWord(models.Model):
+    """Words that user added to training."""
+    training_type = models.ForeignKey(
+        "training.TrainingType",
+        on_delete=models.RESTRICT,
+        related_name="chosen_words",
+    )
+    user_word = models.ForeignKey(
+        "training.UserWord",
+        on_delete=models.CASCADE,
+        related_name="chosen_words",
+        related_query_name="chosen_words",
+    )
+
+    class Meta:
+        verbose_name = _("Training Type User Word")
+        verbose_name_plural = _("Training Types User Words")
+
+    def __str__(self):
+        return f"{self.user_word} for {self.training_type}"
+
+
 class Training(models.Model):
     """Training of user."""
 
@@ -100,6 +122,7 @@ class Question(models.Model):
     user_word = models.ForeignKey(
         "training.UserWord",
         on_delete=models.RESTRICT,
+        related_name="questions",
         null=False,
     )
 
@@ -115,5 +138,5 @@ class Question(models.Model):
         """Check that user word related to user which started training."""
         if self.user_word.user != self.training.user:
             raise ValidationError(
-                f"UserWord must relate to {self.training.user}",
+                _(f"UserWord must relate to {self.training.user}"),
             )

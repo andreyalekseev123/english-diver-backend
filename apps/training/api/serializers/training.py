@@ -1,6 +1,8 @@
 from operator import itemgetter
 
 from django.db.models import F
+from django.utils.translation import gettext_lazy as _
+
 from rest_framework import serializers
 
 from apps.core.api.serializers import BaseSerializer
@@ -31,9 +33,10 @@ class FinishTrainingItemSerializer(BaseSerializer):
         ]
         if word not in current_training_words:
             raise serializers.ValidationError(
-                f"{word} wasn't in training",
+                _(f"{word} wasn't in training"),
             )
         return word
+
 
 class FinishTrainingSerializer(BaseSerializer):
     """Serializer to finish training"""
@@ -53,14 +56,16 @@ class FinishTrainingSerializer(BaseSerializer):
         """Validate all words were passed."""
         attrs = super().validate(attrs)
         result = attrs["result"]
-        words = [data["word"] for data in result].sort()
+        words = [data["word"] for data in result]
         current_training_words = [
             question.user_word.word.english for question
             in self.training.questions.all()
-        ].sort()
+        ]
+        current_training_words.sort()
+        words.sort()
         if words != current_training_words:
             raise serializers.ValidationError(
-                "Not all words were provided",
+                _("Not all words were provided"),
             )
         return attrs
 
@@ -82,4 +87,9 @@ class FinishTrainingSerializer(BaseSerializer):
             ).update(
                 rank=F("rank") + self.training.type.cost,
             )
+            models.TrainingTypeUserWord.objects.filter(
+                training_type=self.training.type,
+                user_word__user=self._user,
+                user_word__word_id__in=right_words_ids,
+            ).delete()
             self.training.delete()

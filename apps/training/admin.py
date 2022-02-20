@@ -70,6 +70,11 @@ class QuestionAdmin(admin.ModelAdmin):
 @admin.register(models.UserWord)
 class UserWordAdmin(admin.ModelAdmin):
     """Admin class for ``Question`` model."""
+    search_fields = (
+        "user__email",
+        "word__english",
+        "word__russian",
+    )
     autocomplete_fields = ("user", "word")
     list_display = (
         "id",
@@ -141,3 +146,34 @@ class CategoryAdmin(ImportExportMixin, admin.ModelAdmin):
     def get_queryset(self, request):
         """Prefetch words."""
         return super().get_queryset(request).prefetch_related("words")
+
+
+@admin.register(models.TrainingTypeUserWord)
+class TrainingTypeUserWordsAdmin(ImportExportMixin, admin.ModelAdmin):
+    """Admin class for ``TrainingTypeUserWord`` model."""
+    resource_class = resources.WordResource
+    autocomplete_fields = (
+        "training_type",
+        "user_word",
+    )
+    search_fields = (
+        "user_word__user__email",
+        "user_word__word__english",
+        "user_word__word__russian",
+        "training_type__name",
+    )
+    list_filter = (
+        "training_type",
+    )
+    list_display = (
+        "id",
+        "training_type",
+        "user_word",
+    )
+    fieldsets = (
+        ("Main info", {
+            "classes": ("wide",),
+            "fields": ("id", "training_type", "user_word"),
+        }),
+    )
+    readonly_fields = ("id",)

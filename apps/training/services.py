@@ -8,11 +8,27 @@ from apps.users.models import User
 
 def get_words_for_training(
     user: User,
-    num_words: int,
-) -> QuerySet[models.UserWord]:
-    """Get words for training."""
-    words = user.user_words.order_by("rank")[:num_words]
-    return words
+    training_type: models.TrainingType,
+) -> list[models.UserWord]:
+    """Get words for training.
+
+    Firstly it tries to get words from added to training words, check
+    `TrainingTypeUserWord` processing.
+    If not enough words, then it get another words from dictionary
+    """
+    num_words = training_type.questions_count
+    chosen_words = user.user_words.filter(
+        chosen_words__training_type=training_type,
+    ).order_by("rank")[:num_words]
+    chosen_words_count = chosen_words.count()
+    if chosen_words_count == num_words:
+        return chosen_words
+
+    remaining_count = num_words - chosen_words_count
+    words = user.user_words.exclude(
+        id__in=chosen_words,
+    ).order_by("rank")[:remaining_count]
+    return list(chosen_words) + list(words)
 
 
 def generate_training_questions(
@@ -27,7 +43,7 @@ def generate_training_questions(
     questions = []
     for user_word in get_words_for_training(
         user=user,
-        num_words=training_type.questions_count,
+        training_type=training_type,
     ):
         questions.append(models.Question(
             training=training,
