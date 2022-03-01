@@ -23,6 +23,13 @@ def training_type_upload_to(model_instance, filename):
 
 class TrainingType(models.Model):
     """Type of training."""
+    id = models.CharField(
+        max_length=20,
+        primary_key=True,
+        auto_created=False,
+        editable=False,
+        unique=True,
+    )
     name = models.CharField(
         max_length=255,
         unique=True,
@@ -41,6 +48,10 @@ class TrainingType(models.Model):
     words_per_question_count = models.PositiveIntegerField(
         verbose_name=_("Words per question count"),
         help_text=_("How much questions must be in training"),
+    )
+    words_can_be_chosen = models.BooleanField(
+        default=True,
+        verbose_name=_("Words can be chosen"),
     )
 
     cost = models.PositiveIntegerField(

@@ -12,9 +12,9 @@ from ... import models
 
 class TrainingItemSerializer(BaseSerializer):
     """Serializer for training item."""
-    russian = serializers.CharField()
+    word = serializers.CharField()
     translation = serializers.CharField()
-    words = serializers.ListField(
+    similar_words = serializers.ListField(
         child=serializers.CharField(),
     )
 

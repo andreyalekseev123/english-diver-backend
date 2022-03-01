@@ -93,7 +93,6 @@ class AddWordsToTrainingSerializer(BaseSerializer):
 
     def validate_words(self, words):
         """Validate that all words are in dictionary."""
-        current_words = self._user.words.all()
         words_in_dictionary_count = self._user.words.filter(
             id__in=[word.id for word in words],
         ).count()
@@ -102,6 +101,14 @@ class AddWordsToTrainingSerializer(BaseSerializer):
                 _("Not all words are in dictionary")
             )
         return words
+
+    def validate(self, attrs):
+        """Check that words can be chosen for training type."""
+        if not attrs["training_type"].words_can_be_chosen:
+            raise serializers.ValidationError(
+                _("Words can be chosen for this training type"),
+            )
+        return attrs
 
     def save(self, **kwargs):
         """Save words for future trainings.

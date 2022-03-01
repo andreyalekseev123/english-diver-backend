@@ -3,17 +3,13 @@ from django.http import Http404
 from rest_framework import status
 from rest_framework.decorators import action
 from rest_framework.exceptions import ValidationError
-from rest_framework.generics import get_object_or_404
 from rest_framework.mixins import ListModelMixin
 from rest_framework.response import Response
 
 from apps.core.api.views import BaseViewSet
 from apps.training import models
 from apps.training.api import serializers
-from apps.training.services import (
-    generate_data_for_training,
-    generate_training_questions,
-)
+from apps.training.constants import TRAINING_TYPES_PROCESSORS_MAPPING
 
 
 class TrainingTypeViewSet(BaseViewSet, ListModelMixin):
@@ -34,26 +30,17 @@ class TrainingTypeViewSet(BaseViewSet, ListModelMixin):
     def start(self, request, pk=None):
         """Start training."""
         training_type: models.TrainingType = self.get_object()
-        if request.user.user_words.count() < training_type.questions_count:
-            raise ValidationError(
-                "Not enough words in dictionary. "
-                f"There must be at least {training_type.questions_count}.",
-            )
-        training: models.Training = training_type.trainings.filter(
+        processor = TRAINING_TYPES_PROCESSORS_MAPPING[training_type.id](
+            training_type=training_type,
             user=request.user,
-        ).first()
-        if training:
-            questions = training.questions.all().select_related(
-                "user_word",
-                "user_word__word",
-            )
-        else:
-            questions = generate_training_questions(
-                training_type=training_type,
-                user=request.user,
-            )
+        )
+        is_enough_words = processor.check_enough_words()
+        if not is_enough_words:
+            error_message = processor.get_not_enough_words_error_message()
+            raise ValidationError(error_message)
+
         serializer = self.get_serializer(
-            generate_data_for_training(questions, training_type),
+            processor.generate_data_for_training(),
             many=True,
         )
         return Response(

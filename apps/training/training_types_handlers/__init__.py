@@ -1,0 +1,4 @@
+from .fast_translate import FastTranslateHandler
+from .word_translate import WordTranslateHandler
+from .word_constructor import WordConstructorHandler
+from .multi_training import MultiTrainingHandler

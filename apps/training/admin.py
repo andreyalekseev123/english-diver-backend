@@ -11,6 +11,10 @@ class TrainingTypeAdmin(admin.ModelAdmin):
     """Admin class for ``TrainingType`` model."""
     search_fields = ("name",)
     list_display = ("id", "name", "cost")
+    list_display_links = (
+        "id",
+        "name",
+    )
     fieldsets = (
         (None, {
             "classes": ("wide",),
@@ -21,6 +25,7 @@ class TrainingTypeAdmin(admin.ModelAdmin):
                 "questions_count",
                 "words_per_question_count",
                 "cost",
+                "words_can_be_chosen",
             ),
         }),
     )

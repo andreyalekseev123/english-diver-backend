@@ -11,4 +11,5 @@ class TrainingTypeSerializer(ModelBaseSerializer):
             "id",
             "name",
             "image",
+            "words_can_be_chosen",
         )
