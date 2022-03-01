@@ -94,6 +94,9 @@ class BaseTrainingTypeHandler:
                 training=training,
                 user_word=user_word,
             ))
+        models.Question.objects.bulk_create(
+            objs=questions,
+        )
         return questions
 
     def _get_similar_words(
@@ -173,6 +176,9 @@ class BaseTrainingTypeHandler:
     def _get_training_question_data_translation(
         self,
         question: models.Question,
-    ) -> str:
+    ) -> dict:
         """Override this get translation of word that presented to user."""
-        return getattr(question.user_word.word, self.TRANSLATE_ATTR)
+        return dict(
+            word=getattr(question.user_word.word, self.TRANSLATE_ATTR),
+            image=question.user_word.word.image,
+        )

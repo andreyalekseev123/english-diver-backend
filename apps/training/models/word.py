@@ -74,6 +74,12 @@ class Word(models.Model):
         verbose_name=_("Word in russian"),
         max_length=255,
     )
+    image = models.ImageField(
+        upload_to=settings.DEFAULT_MEDIA_PATH,
+        blank=True,
+        null=True,
+        verbose_name=_("Image"),
+    )
     categories = models.ManyToManyField(
         "training.Category",
         related_name="words",

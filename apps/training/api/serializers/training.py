@@ -10,10 +10,16 @@ from apps.core.api.serializers import BaseSerializer
 from ... import models
 
 
+class TrainingItemTranslationSerializer(BaseSerializer):
+    """Serializer for translation"""
+    word = serializers.CharField()
+    image = serializers.ImageField()
+
+
 class TrainingItemSerializer(BaseSerializer):
     """Serializer for training item."""
     word = serializers.CharField()
-    translation = serializers.CharField()
+    translation = TrainingItemTranslationSerializer()
     similar_words = serializers.ListField(
         child=serializers.CharField(),
     )
