@@ -137,21 +137,22 @@ class BaseTrainingTypeHandler:
         `TrainingTypeUserWord` processing.
         If not enough words, then it get another words from dictionary
         """
-        chosen_words = self.user.user_words.filter(
-            chosen_words__training_type=self.training_type,
-        ).order_by("rank")[:self.training_type.questions_count]
-
-        chosen_words_count = chosen_words.count()
+        chosen_words = list(
+            self.user.user_words.filter(
+                chosen_words__training_type=self.training_type,
+            ).order_by("rank")[:self.training_type.questions_count]
+        )
+        chosen_words_count = len(chosen_words)
         additional_words = []
         if chosen_words_count != self.training_type.questions_count:
             remaining_count = (
-                    self.training_type.questions_count - chosen_words_count
+                self.training_type.questions_count - chosen_words_count
             )
             additional_words = self._get_additional_words_for_training(
                 chosen_words=chosen_words,
                 remaining_count=remaining_count,
             )
-        return list(chosen_words) + list(additional_words)
+        return chosen_words + additional_words
 
     def _get_additional_words_for_training(
         self,
@@ -162,9 +163,11 @@ class BaseTrainingTypeHandler:
 
         This need if not enough words in chosen words.
         """
-        return self.user.user_words.exclude(
-            id__in=chosen_words,
-        ).order_by("rank")[:remaining_count]
+        return list(
+            self.user.user_words.exclude(
+                id__in=chosen_words,
+            ).order_by("rank")[:remaining_count]
+        )
 
     def _get_training_question_data_word(
         self,
