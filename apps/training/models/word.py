@@ -76,6 +76,7 @@ class Word(models.Model):
     )
     image = models.ImageField(
         upload_to=settings.DEFAULT_MEDIA_PATH,
+        max_length=500,
         blank=True,
         null=True,
         verbose_name=_("Image"),
