@@ -1,4 +1,6 @@
 
+from libs.import_export.widgets import FileWidget
+
 from apps.core.import_export.fields import FieldWithAddM2M
 from apps.core.import_export.widgets import CreatableManyToManyWidget
 
@@ -17,6 +19,7 @@ class WordResource(ModelResource):
             field="name"
         )
     )
+    image = FileWidget(filename="image")
 
     class Meta:
         model = models.Word
@@ -27,5 +30,6 @@ class WordResource(ModelResource):
         fields = (
             "english",
             "russian",
+            "image",
             "categories",
         )

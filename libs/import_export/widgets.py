@@ -28,8 +28,8 @@ class FileWidget(CharWidget):
         """Convert DB value to URL to file"""
         if value:
             if (
-                    settings.DEFAULT_FILE_STORAGE
-                    == 'django.core.files.storage.FileSystemStorage'
+                settings.DEFAULT_FILE_STORAGE
+                == 'django.core.files.storage.FileSystemStorage'
             ):
                 return f'http://localhost:8000{value.url}'
             return value.url
