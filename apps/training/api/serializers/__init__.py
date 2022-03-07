@@ -1,9 +1,10 @@
 from .category import CategorySerializer
 from .dictionary import (
+    AddWordsToTrainingSerializer,
     CategoryIdSerializer,
     UserWordCreateSerializer,
     UserWordRemoveSerializer,
-    AddWordsToTrainingSerializer,
+    UserWordSerializer,
     WordSerializer,
 )
 from .training import FinishTrainingSerializer, TrainingItemSerializer
