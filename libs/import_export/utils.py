@@ -152,10 +152,10 @@ def url_to_internal_value(file_url):
         # In case of local storing crop the media prefix
         file_url = file_url[len(settings.MEDIA_URL) - 1:]
 
-    elif (getattr(settings, 'AWS_STORAGE_BUCKET_NAME')
-            and settings.AWS_STORAGE_BUCKET_NAME in file_url):
-        # In case of S3 upload crop S3 bucket name
-        file_url = file_url.split(f'{settings.AWS_STORAGE_BUCKET_NAME}/')[-1]
+    elif (getattr(settings, 'CLOUDINARY_CLOUD_NAME')
+            and settings.CLOUDINARY_CLOUD_NAME in file_url):
+        # In case of cloudinary upload crop cloudinary bucket name
+        file_url = file_url.split(f'{settings.MEDIA_URL}')[-1]
 
     return file_url
 

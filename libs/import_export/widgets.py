@@ -38,16 +38,7 @@ class FileWidget(CharWidget):
         """Get the file and check for exists."""
         if not value:
             return
-
-        # internal_url = url_to_internal_value(urlparse(value).path)
-        #
-        # try:
-        #     if default_storage.exists(internal_url):
-        #         return internal_url
-        # except SuspiciousFileOperation:
-        #     pass
-
-        return self._get_file(value)
+        return url_to_internal_value(urlparse(value).path)
 
     def _get_file(self, url):
         """Download file from the external resource."""
