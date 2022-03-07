@@ -112,7 +112,7 @@ class WordAdmin(ImportExportMixin, admin.ModelAdmin):
     fieldsets = (
         ("Main info", {
             "classes": ("wide",),
-            "fields": ("id", "english", "russian", "categories"),
+            "fields": ("id", "english", "russian", "image", "categories"),
         }),
     )
     readonly_fields = ("id",)
