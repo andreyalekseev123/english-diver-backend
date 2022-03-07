@@ -39,13 +39,13 @@ class FileWidget(CharWidget):
         if not value:
             return
 
-        internal_url = url_to_internal_value(urlparse(value).path)
-
-        try:
-            if default_storage.exists(internal_url):
-                return internal_url
-        except SuspiciousFileOperation:
-            pass
+        # internal_url = url_to_internal_value(urlparse(value).path)
+        #
+        # try:
+        #     if default_storage.exists(internal_url):
+        #         return internal_url
+        # except SuspiciousFileOperation:
+        #     pass
 
         return self._get_file(value)
 

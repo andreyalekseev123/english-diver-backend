@@ -1,5 +1,6 @@
 # Static files (CSS, JavaScript, Images)
 # https://docs.djangoproject.com/en/1.8/howto/static-files/
+import mimetypes
 import os
 
 from .paths import BASE_DIR
@@ -14,3 +15,5 @@ STATICFILES_FINDERS = (
     "django.contrib.staticfiles.finders.FileSystemFinder",
     "django.contrib.staticfiles.finders.AppDirectoriesFinder",
 )
+
+MIME_TYPES_MAP = mimetypes.types_map.copy()

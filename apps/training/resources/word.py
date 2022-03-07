@@ -1,3 +1,4 @@
+from import_export.fields import Field
 
 from libs.import_export.widgets import FileWidget
 
@@ -19,7 +20,11 @@ class WordResource(ModelResource):
             field="name"
         )
     )
-    image = FileWidget(filename="image")
+    image = Field(
+        column_name="image",
+        attribute="image",
+        widget=FileWidget(filename="image")
+    )
 
     class Meta:
         model = models.Word
