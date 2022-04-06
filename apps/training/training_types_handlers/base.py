@@ -165,7 +165,7 @@ class BaseTrainingTypeHandler:
         """
         return list(
             self.user.user_words.exclude(
-                id__in=chosen_words,
+                id__in=[chosen_word.id for chosen_word in chosen_words],
             ).order_by("rank")[:remaining_count]
         )
 

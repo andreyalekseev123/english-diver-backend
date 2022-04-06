@@ -34,7 +34,7 @@ class FastTranslateHandler(BaseTrainingTypeHandler):
         """
         on_learning_words = list(
             self.user.user_words.exclude(
-                id__in=chosen_words,
+                id__in=[chosen_word.id for chosen_word in chosen_words],
             ).filter(
                 rank__gt=0,
                 rank__lt=100,
