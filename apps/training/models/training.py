@@ -83,6 +83,7 @@ class TrainingTypeUserWord(models.Model):
     )
 
     class Meta:
+        unique_together = ("training_type", "user_word")
         verbose_name = _("Training Type User Word")
         verbose_name_plural = _("Training Types User Words")
 
