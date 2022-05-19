@@ -10,6 +10,7 @@ class TrainingTypeSerializer(ModelBaseSerializer):
         fields = (
             "id",
             "name",
+            "description",
             "image",
             "words_can_be_chosen",
         )

@@ -35,6 +35,11 @@ class TrainingType(models.Model):
         unique=True,
         verbose_name=_("Type Name"),
     )
+    description = models.TextField(
+        null=True,
+        blank=True,
+        verbose_name=_("Description"),
+    )
     image = models.ImageField(
         max_length=512,
         upload_to=training_type_upload_to,

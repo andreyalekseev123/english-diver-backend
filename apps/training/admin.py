@@ -21,6 +21,7 @@ class TrainingTypeAdmin(admin.ModelAdmin):
             "fields": (
                 "id",
                 "name",
+                "description",
                 "image",
                 "questions_count",
                 "words_per_question_count",
