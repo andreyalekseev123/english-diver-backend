@@ -36,6 +36,7 @@ class TrainingType(models.Model):
         verbose_name=_("Type Name"),
     )
     image = models.ImageField(
+        max_length=512,
         upload_to=training_type_upload_to,
         blank=True,
         null=True,
