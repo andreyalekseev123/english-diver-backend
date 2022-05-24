@@ -37,7 +37,7 @@ class DictionaryApiViewSet(
     def get_queryset(self):
         return models.UserWord.objects.filter(
             user=self.request.user
-        ).select_related("word")
+        ).select_related("word").order_by("word__english")
 
     @action(methods=["POST"], detail=False, url_path="add-category-words")
     def add_category_words(self, request):

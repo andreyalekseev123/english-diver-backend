@@ -22,4 +22,4 @@ class WordsViewSet(BaseViewSet, ListModelMixin):
 
     def get_queryset(self):
         """Annotate with is_linked."""
-        return super().get_queryset().with_is_linked(self.request.user)
+        return super().get_queryset().with_is_linked(self.request.user).order_by("english")
